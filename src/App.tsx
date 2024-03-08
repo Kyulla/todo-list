@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { TodoContextProvider } from "./components/TodoContext";
+import TodoList from "./components/TodoList";
+import { GlobalStyle } from "./components/styled-components";
+import ThemeButton from "./components/ThemeButton";
 
-function App() {
+export default function App() {
+  const [darktheme, setDarktheme] = useState<boolean>(false);
+
+  function handleDarkTheme(){
+    setDarktheme(!darktheme);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GlobalStyle handleDarkTheme={darktheme} />
+      <ThemeButton handleDarkTheme={handleDarkTheme} darktheme={darktheme}/>
+      <TodoContextProvider>
+        <TodoList />
+      </TodoContextProvider>
     </div>
   );
 }
-
-export default App;
